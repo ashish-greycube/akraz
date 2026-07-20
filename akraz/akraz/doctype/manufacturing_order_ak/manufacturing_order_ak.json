@@ -1,0 +1,145 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "MO-.YY.-.#####",
+ "creation": "2026-07-16 07:12:25.995499",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_ukrf",
+  "amended_from",
+  "section_break_xfng",
+  "date",
+  "customer",
+  "sales_invoice_reference",
+  "column_break_qmns",
+  "quotation_reference",
+  "production_status",
+  "billing_status",
+  "section_break_mpiu",
+  "items",
+  "raw_items"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_ukrf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Manufacturing Order AK",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "section_break_xfng",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "sales_invoice_reference",
+   "fieldtype": "Data",
+   "label": "Sales Invoice Reference",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_qmns",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "quotation_reference",
+   "fieldtype": "Link",
+   "label": "Quotation Reference",
+   "options": "Quotation",
+   "read_only": 1
+  },
+  {
+   "default": "Pending",
+   "fieldname": "production_status",
+   "fieldtype": "Select",
+   "label": "Production Status",
+   "options": "Pending\nCompleted\nCancelled"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Unbilled",
+   "fieldname": "billing_status",
+   "fieldtype": "Select",
+   "label": "Billing Status",
+   "options": "Billed\nUnbilled"
+  },
+  {
+   "fieldname": "section_break_mpiu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Manufacturing Order Item AK"
+  },
+  {
+   "fieldname": "raw_items",
+   "fieldtype": "Table",
+   "label": "Raw Items",
+   "options": "Raw Item AK"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "group": "Stock Entry",
+   "link_doctype": "Stock Entry",
+   "link_fieldname": "manufacturing_order_ref_cf"
+  },
+  {
+   "group": "Sales Invoice",
+   "link_doctype": "Sales Invoice",
+   "link_fieldname": "manufacturing_ref_cf"
+  }
+ ],
+ "modified": "2026-07-20 07:35:17.715969",
+ "modified_by": "Administrator",
+ "module": "Akraz",
+ "name": "Manufacturing Order AK",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

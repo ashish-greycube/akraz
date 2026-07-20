@@ -48,6 +48,10 @@ app_license = "mit"
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
+doctype_js = {
+    "Quotation": "public/js/quotation.js"
+}
+
 # Svg Icons
 # ------------------
 # include app icons in desk
@@ -84,6 +88,7 @@ app_license = "mit"
 
 # before_install = "akraz.install.before_install"
 # after_install = "akraz.install.after_install"
+after_migrate = "akraz.migrate.after_migrate"
 
 # Uninstallation
 # ------------
@@ -144,6 +149,13 @@ app_license = "mit"
 # 		"on_trash": "method"
 # 	}
 # }
+
+doc_events = {
+	"Sales Invoice": {
+		"validate": "akraz.api.sales_invoice_validate_set_reference_in_mo",
+        "on_submit": "akraz.api.sales_invoice_submit_set_billing_status_in_mo",
+	}
+}
 
 # Scheduled Tasks
 # ---------------

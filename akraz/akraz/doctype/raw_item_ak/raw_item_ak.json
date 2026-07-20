@@ -1,0 +1,87 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-07-16 11:47:59.529542",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "parent_item",
+  "item_code",
+  "item_name",
+  "warehouse",
+  "column_break_ynvz",
+  "qty",
+  "valuation",
+  "total"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Code",
+   "options": "Item"
+  },
+  {
+   "fetch_from": "item_code.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Item Name"
+  },
+  {
+   "default": "1",
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty"
+  },
+  {
+   "default": "0",
+   "fieldname": "valuation",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Valuation"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total"
+  },
+  {
+   "fieldname": "column_break_ynvz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "parent_item",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Parent Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-07-17 13:37:01.619310",
+ "modified_by": "Administrator",
+ "module": "Akraz",
+ "name": "Raw Item AK",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
