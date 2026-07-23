@@ -5,7 +5,16 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "do_not_allow_user_to_sell_less_than_cost_rate"
+  "do_not_allow_user_to_sell_less_than_cost_rate",
+  "is_repack_submit",
+  "section_break_xqcr",
+  "printing_service",
+  "sulufan",
+  "taskeer",
+  "column_break_tvxy",
+  "tagria",
+  "cover",
+  "uv"
  ],
  "fields": [
   {
@@ -13,13 +22,63 @@
    "fieldname": "do_not_allow_user_to_sell_less_than_cost_rate",
    "fieldtype": "Check",
    "label": "Do not allow user to sell less than Cost rate?"
+  },
+  {
+   "fieldname": "section_break_xqcr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "printing_service",
+   "fieldtype": "Link",
+   "label": "Printing Service",
+   "options": "Item"
+  },
+  {
+   "fieldname": "sulufan",
+   "fieldtype": "Link",
+   "label": "Sulufan",
+   "options": "Item"
+  },
+  {
+   "fieldname": "taskeer",
+   "fieldtype": "Link",
+   "label": "Taskeer",
+   "options": "Item"
+  },
+  {
+   "fieldname": "tagria",
+   "fieldtype": "Link",
+   "label": "Tagria",
+   "options": "Item"
+  },
+  {
+   "fieldname": "cover",
+   "fieldtype": "Link",
+   "label": "Cover",
+   "options": "Item"
+  },
+  {
+   "fieldname": "uv",
+   "fieldtype": "Link",
+   "label": "UV",
+   "options": "Item"
+  },
+  {
+   "fieldname": "column_break_tvxy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_repack_submit",
+   "fieldtype": "Check",
+   "label": "Is Repack Submit?"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-07-16 15:49:29.334667",
+ "modified": "2026-07-22 15:47:09.872782",
  "modified_by": "Administrator",
  "module": "Akraz",
  "name": "Akraz Settings",

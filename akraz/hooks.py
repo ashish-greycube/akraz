@@ -154,6 +154,8 @@ doc_events = {
 	"Sales Invoice": {
 		"validate": "akraz.api.sales_invoice_validate_set_reference_in_mo",
         "on_submit": "akraz.api.sales_invoice_submit_set_billing_status_in_mo",
+        "on_cancel": "akraz.api.cancel_sales_invoice_change_mo_billing_status",
+        "on_change": "akraz.api.on_change_si_set_billing_status_in_mo"
 	}
 }
 

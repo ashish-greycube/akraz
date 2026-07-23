@@ -70,11 +70,13 @@
    "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "default": "Pending",
    "fieldname": "production_status",
    "fieldtype": "Select",
    "label": "Production Status",
-   "options": "Pending\nCompleted\nCancelled"
+   "options": "Pending\nCompleted\nCancelled",
+   "read_only": 1
   },
   {
    "allow_on_submit": 1,
@@ -82,7 +84,8 @@
    "fieldname": "billing_status",
    "fieldtype": "Select",
    "label": "Billing Status",
-   "options": "Billed\nUnbilled"
+   "options": "Billed\nUnbilled\nPaid",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_mpiu",
@@ -116,7 +119,7 @@
    "link_fieldname": "manufacturing_ref_cf"
   }
  ],
- "modified": "2026-07-20 07:35:17.715969",
+ "modified": "2026-07-22 09:35:22.466126",
  "modified_by": "Administrator",
  "module": "Akraz",
  "name": "Manufacturing Order AK",

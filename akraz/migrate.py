@@ -35,6 +35,15 @@ def after_migrate():
 				"is_custom_field":1,
 				"is_system_generated":0,
 			},
+            {
+                "fieldname" : "machine_type_cf",
+                "fieldtype" : "Link",
+                "label":'Machine Type',
+                "insert_after":'order_type',
+                "options": "Printing Machine",
+				"is_custom_field":1,
+				"is_system_generated":0,
+			},
         ],
         "Sales Invoice" : [
             # {
@@ -65,6 +74,16 @@ def after_migrate():
                 "insert_after":'apply_putaway_rule',
                 "options": "Manufacturing Order AK",
                 "read_only": 1,
+				"is_custom_field":1,
+				"is_system_generated":0,
+			},
+        ],
+        "Item" : [
+            {
+                "fieldname" : "is_sheet_item",
+                "fieldtype" : "Check",
+                "label":'Is Sheet Item?',
+                "insert_after":'stock_uom',
 				"is_custom_field":1,
 				"is_system_generated":0,
 			},

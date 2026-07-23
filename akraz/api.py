@@ -14,6 +14,9 @@ def create_manufacturing_order(source_name: str, target_doc=None, args=None):
 
 		target.save()
 
+	def is_stock_item_row(row):
+		return frappe.get_value("Item", row.item_code, "is_stock_item")
+
 	doclist = get_mapped_doc(
 		"Quotation",
 		source_name,
@@ -27,6 +30,7 @@ def create_manufacturing_order(source_name: str, target_doc=None, args=None):
 			},
 			"Raw Item AK": {
 				"doctype": "Raw Item AK",
+				"condition": is_stock_item_row,
 			},
 		},
 		target_doc,
@@ -88,7 +92,6 @@ def create_stock_entry(self, selected_item):
 		# Raw Items
 		for item in self.raw_items:
 			item = frappe._dict(item)
-			frappe.errprint(f"{item} - {type(item)}")
 			if item.parent_item == selected_item:
 				isPresent = False	
 				
@@ -111,7 +114,6 @@ def create_stock_entry(self, selected_item):
 
 		for main_item in self.get("items"):
 			main_item = frappe._dict(main_item)
-			frappe.errprint(f"{main_item} - {type(main_item)}")
 
 			if main_item.item_code == selected_item:
 				# Target / Actual Data
@@ -124,8 +126,9 @@ def create_stock_entry(self, selected_item):
 				break
 		se_doc.manufacturing_order_ref_cf = self.name
 		se_doc.save()
-		# if isSubmit == 1:
-		# 	se_doc.submit()
+		isSubmit = frappe.db.get_single_value("Akraz Settings", "is_repack_submit")
+		if isSubmit == 1:
+			se_doc.submit()
 
 		frappe.msgprint("Stock Entry is Created: {0}".format(frappe.utils.get_link_to_form("Stock Entry", se_doc.name)))
 
@@ -159,3 +162,21 @@ def sales_invoice_submit_set_billing_status_in_mo(self, method=None):
 	mo_doc = frappe.get_doc("Manufacturing Order AK", self.manufacturing_ref_cf)
 	mo_doc.billing_status = "Billed"
 	mo_doc.save()
+
+@frappe.whitelist()
+def cancel_sales_invoice_change_mo_billing_status(self, method=None):
+	mo_doc = frappe.get_doc("Manufacturing Order AK", self.manufacturing_ref_cf)
+
+	mo_doc.billing_status = "Unbilled"
+	mo_doc.sales_invoice_reference = ""
+
+	mo_doc.save()
+
+@frappe.whitelist()
+def on_change_si_set_billing_status_in_mo(self, method=None):
+	mo_doc = frappe.get_doc("Manufacturing Order AK", self.manufacturing_ref_cf)
+
+	if self.status == "Paid":
+		mo_doc.billing_status = "Paid"
+
+		mo_doc.save()
