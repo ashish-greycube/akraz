@@ -25,12 +25,16 @@ frappe.ui.form.on("Quotation", {
         for (let item of frm.doc.items) {
             let total_cost = 0
             for (let raw_item of frm.doc.raw_items_cf) {
-                if (raw_item.parent_item == item.item_code) {
+                if (raw_item.parent_item == item.item_code && raw_item.total != undefined && raw_item.total != "") {
                     total_cost += raw_item.total
                 }
             }
             frappe.model.set_value("Quotation Item", item.name, "total_cost_cf", total_cost)
-            frappe.model.set_value("Quotation Item", item.name, "cost_per_pcs_cf", (total_cost / item.qty))
+            if (total_cost !== 0 && total_cost !== "" && total_cost !== undefined) {
+                frappe.model.set_value("Quotation Item", item.name, "cost_per_pcs_cf", (total_cost / item.qty))
+            } else {
+                frappe.model.set_value("Quotation Item", item.name, "cost_per_pcs_cf", 0)
+            }
             frm.refresh_field("items")
         }
 
