@@ -87,6 +87,23 @@ def after_migrate():
 				"is_custom_field":1,
 				"is_system_generated":0,
 			},
+            {
+                "fieldname" : "production_cost",
+                "fieldtype" : "Float",
+                "label":'Production Cost',
+                "insert_after":'valuation_rate',
+				"is_custom_field":1,
+				"is_system_generated":0,
+			},
+            {
+                "fieldname" : "sulufan_cost",
+                "fieldtype" : "Float",
+                "label":'Sulufan Cost',
+                "insert_after":'is_sheet_item',
+                "depends_on": "is_sheet_item",
+				"is_custom_field":1,
+				"is_system_generated":0,
+			},
         ],
 
         "Quotation Item" : [

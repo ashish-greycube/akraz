@@ -9,7 +9,6 @@ frappe.ui.form.on("Quotation", {
                     fields: ["name"],
                     filters: { "quotation_reference": frm.doc.name }
                 }).then((r) => {
-                    // console.log(r, r.length);
                     if (r.length <= 0) {
                         frappe.model.open_mapped_doc({
                             method: "akraz.api.create_manufacturing_order",
@@ -50,7 +49,7 @@ frappe.ui.form.on('Quotation Item', {
         let row = locals[cdt][cdn]
         if (row.item_code) {
             frm.add_child('raw_items_cf', {
-                parent_item: row.item_code
+                parent_item: row.item_code,
             })
             frm.refresh_field('raw_items_cf')
         } else {
@@ -71,7 +70,7 @@ async function sync_sheet_dependents(frm, sheet_row) {
             frappe.model.set_value(r.doctype, r.name, "qty", sheet_row.qty)
         }
         if (r.item_code == settings_doc.sulufan) {
-            frappe.model.set_value(r.doctype, r.name, "valuation", sheet_row.valuation)
+            // frappe.model.set_value(r.doctype, r.name, "valuation", sheet_row.valuation)
         }
     }
     frm.refresh_field("raw_items_cf")
@@ -149,17 +148,12 @@ frappe.ui.form.on('Raw Item AK', {
             frappe.throw("Please Set Machine Type.")
         }
 
-        console.log(machine_doc)
-
         // Setting Printing Cost, will be used in Printing Service Row
         printing_cost = 0
         for (let i of machine_doc.cost_table) {
-            console.log("machine_doc.cost_table", i)
-            console.log("parent_row", parent_row.qty)
             if (parent_row.qty >= i.from && parent_row.qty <= i.to) {
                 printing_cost = i.cost
 
-                console.log(printing_cost)
                 break
             }
         }
@@ -168,17 +162,21 @@ frappe.ui.form.on('Raw Item AK', {
 
         if (is_sheet_item == 1) {
             // Sheet Row: qty already set from parent row; valuation stays the stock balance rate fetched above
-            frappe.model.set_value(cdt, cdn, "qty", parent_row.qty)
+            // frappe.model.set_value(cdt, cdn, "qty", parent_row.qty)
 
-            // Getting Taskeer, Tagria and UV standard prices from the Quotation's Selling Price List
-            let taskeer_price_res = await frappe.db.get_value("Item Price", { item_code: settings_doc.taskeer, price_list: frm.doc.selling_price_list }, "price_list_rate")
-            let taskeer_price = taskeer_price_res.message.price_list_rate
+            // Getting Taskeer, Tagria and UV standard prices from their  production cost (defined in Item)
+            let taskeer_price_res = await frappe.db.get_value("Item", settings_doc.taskeer, "production_cost")
+            let taskeer_price = taskeer_price_res.message.production_cost
 
-            let tagria_price_res = await frappe.db.get_value("Item Price", { item_code: settings_doc.tagria, price_list: frm.doc.selling_price_list }, "price_list_rate")
-            let tagria_price = tagria_price_res.message.price_list_rate
+            let tagria_price_res = await frappe.db.get_value("Item", settings_doc.tagria, "production_cost")
+            let tagria_price = tagria_price_res.message.production_cost
 
-            let uv_price_res = await frappe.db.get_value("Item Price", { item_code: settings_doc.uv, price_list: frm.doc.selling_price_list }, "price_list_rate")
-            let uv_price = uv_price_res.message.price_list_rate
+            let uv_price_res = await frappe.db.get_value("Item", settings_doc.uv, "production_cost")
+            let uv_price = uv_price_res.message.production_cost
+
+            // We get sulufan valuation from Sheet Item -> sulufan rate field
+            let sulufan_price_res = await frappe.db.get_value("Item", row.item_code, "sulufan_cost")
+            let sulufan_price = sulufan_price_res.message.sulufan_cost
 
             // Printing Service
             frm.add_child("raw_items_cf", {
@@ -191,7 +189,7 @@ frappe.ui.form.on('Raw Item AK', {
             frm.add_child("raw_items_cf", {
                 item_code: settings_doc.sulufan,
                 qty: row.qty,
-                valuation: sheet_valuation,
+                valuation: sulufan_price,
                 parent_item: row.parent_item
             })
             // Taskeer Row
