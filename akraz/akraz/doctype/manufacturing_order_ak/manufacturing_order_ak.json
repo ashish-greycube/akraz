@@ -16,9 +16,125 @@
   "quotation_reference",
   "production_status",
   "billing_status",
+  "printing_machine",
+  "sulufan_machine",
+  "takseer_machine",
+  "stage",
   "section_break_mpiu",
   "items",
-  "raw_items"
+  "raw_items",
+  "statement_section",
+  "box",
+  "column_break_ocfq",
+  "bag",
+  "column_break_hlor",
+  "profile",
+  "column_break_bwxi",
+  "folded",
+  "column_break_kppk",
+  "card",
+  "column_break_jtwq",
+  "gift_paper",
+  "column_break_rlal",
+  "parchment_paper",
+  "paper_section",
+  "invarcode",
+  "column_break_kgpm",
+  "couche",
+  "column_break_nhgy",
+  "bristol",
+  "column_break_dtpm",
+  "sticker",
+  "column_break_aogy",
+  "wood_free_paper",
+  "column_break_dzqb",
+  "manual_note",
+  "weight_section",
+  "350",
+  "300",
+  "column_break_vrac",
+  "250",
+  "230",
+  "column_break_mtsh",
+  "210",
+  "170",
+  "column_break_brmr",
+  "150",
+  "120",
+  "column_break_gxkh",
+  "115",
+  "130",
+  "column_break_izcx",
+  "80",
+  "70",
+  "column_break_tgug",
+  "90",
+  "40",
+  "column_break_cljd",
+  "35",
+  "size_section",
+  "100x70",
+  "90x64",
+  "column_break_pwly",
+  "70x50",
+  "45x64",
+  "column_break_lgvh",
+  "gto_35x50",
+  "gto_32x45",
+  "column_break_ofwf",
+  "manual_entry_size",
+  "quantity_section",
+  "sheet",
+  "print_type_section",
+  "4_colour",
+  "column_break_pefd",
+  "special",
+  "column_break_earx",
+  "printed_sample_attached",
+  "column_break_cixu",
+  "color_analogous_computer",
+  "column_break_lxhl",
+  "print_color",
+  "aspects_of_printing_section",
+  "1_side",
+  "column_break_sxsd",
+  "2_side",
+  "column_break_bsca",
+  "turn_and_work",
+  "column_break_gila",
+  "front_to_back",
+  "cellophane_section",
+  "1_side_cellophane",
+  "column_break_odtr",
+  "2_side_cellophane",
+  "column_break_ebwe",
+  "glosse",
+  "column_break_hrjv",
+  "no_cellophane",
+  "column_break_qzqw",
+  "notes",
+  "die_cut_section",
+  "dabab",
+  "column_break_hdcm",
+  "cylinder",
+  "column_break_yucl",
+  "tepo",
+  "column_break_reiz",
+  "folding",
+  "column_break_hsxm",
+  "cut_size",
+  "column_break_mddx",
+  "silk",
+  "thermal_information_silk_screen_section",
+  "information",
+  "notes_section",
+  "coverage",
+  "column_break_copk",
+  "basma",
+  "column_break_upcx",
+  "uv",
+  "column_break_zvth",
+  "delivery_date"
  ],
  "fields": [
   {
@@ -102,6 +218,606 @@
    "fieldtype": "Table",
    "label": "Raw Items",
    "options": "Raw Item AK"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "stage",
+   "fieldtype": "Select",
+   "label": "Stage",
+   "options": "\nPrinting Stage\nSulufan Stage\nDie Cust Stage\nBasma Stage\nTagria Stage\nOrder Finished"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "sulufan_machine",
+   "fieldtype": "Link",
+   "label": "Sulufan Machine",
+   "options": "Sulufan Machine"
+  },
+  {
+   "fieldname": "statement_section",
+   "fieldtype": "Section Break",
+   "label": "Statement \u0627\u0644\u0628\u064a\u0627\u0646"
+  },
+  {
+   "default": "0",
+   "fieldname": "box",
+   "fieldtype": "Check",
+   "label": "Box \u0628\u0648\u0643\u0633"
+  },
+  {
+   "default": "0",
+   "fieldname": "bag",
+   "fieldtype": "Check",
+   "label": "Bag \u0643\u064a\u0633"
+  },
+  {
+   "fieldname": "column_break_ocfq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_hlor",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "profile",
+   "fieldtype": "Check",
+   "label": "Profile \u0628\u0631\u0648\u0641\u0627\u064a\u0644"
+  },
+  {
+   "fieldname": "column_break_bwxi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "folded",
+   "fieldtype": "Check",
+   "label": "Folded \u0645\u0637\u0648\u064a\u0629"
+  },
+  {
+   "fieldname": "column_break_kppk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "card",
+   "fieldtype": "Check",
+   "label": "Card \u0643\u0631\u062a"
+  },
+  {
+   "fieldname": "column_break_jtwq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "gift_paper",
+   "fieldtype": "Check",
+   "label": "Gift Paper \u0648\u0631\u0642 \u062a\u063a\u0644\u064a\u0641"
+  },
+  {
+   "fieldname": "column_break_rlal",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "parchment_paper",
+   "fieldtype": "Check",
+   "label": "Parchment Paper \u0648\u0631\u0642 \u0632\u0628\u062f\u0629"
+  },
+  {
+   "fieldname": "paper_section",
+   "fieldtype": "Section Break",
+   "label": "Paper \u0627\u0644\u0648\u0631\u0642"
+  },
+  {
+   "default": "0",
+   "fieldname": "invarcode",
+   "fieldtype": "Check",
+   "label": "InvarCode \u0627\u0646\u0641\u0631\u0643\u0648\u062f"
+  },
+  {
+   "fieldname": "column_break_kgpm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "couche",
+   "fieldtype": "Check",
+   "label": "Couche \u0643\u0648\u0634\u064a\u0647"
+  },
+  {
+   "fieldname": "column_break_nhgy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "bristol",
+   "fieldtype": "Check",
+   "label": "Bristol \u0628\u0631\u0648\u0633\u062a\u0648\u0644"
+  },
+  {
+   "fieldname": "column_break_dtpm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "sticker",
+   "fieldtype": "Check",
+   "label": "Sticker \u0633\u062a\u064a\u0643\u0631"
+  },
+  {
+   "fieldname": "column_break_aogy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "wood_free_paper",
+   "fieldtype": "Check",
+   "label": "Wood Free Paper \u0648\u0631\u0642 \u0639\u0627\u062f\u064a"
+  },
+  {
+   "fieldname": "column_break_dzqb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "manual_note",
+   "fieldtype": "Data",
+   "label": "Manual Note"
+  },
+  {
+   "fieldname": "weight_section",
+   "fieldtype": "Section Break",
+   "label": "Weight \u0627\u0644\u0648\u0632\u0646"
+  },
+  {
+   "default": "0",
+   "fieldname": "350",
+   "fieldtype": "Check",
+   "label": "350"
+  },
+  {
+   "default": "0",
+   "fieldname": "300",
+   "fieldtype": "Check",
+   "label": "300"
+  },
+  {
+   "fieldname": "column_break_vrac",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "250",
+   "fieldtype": "Check",
+   "label": "250"
+  },
+  {
+   "default": "0",
+   "fieldname": "230",
+   "fieldtype": "Check",
+   "label": "230"
+  },
+  {
+   "fieldname": "column_break_mtsh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "210",
+   "fieldtype": "Check",
+   "label": "210"
+  },
+  {
+   "default": "0",
+   "fieldname": "170",
+   "fieldtype": "Check",
+   "label": "170"
+  },
+  {
+   "fieldname": "column_break_brmr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "150",
+   "fieldtype": "Check",
+   "label": "150"
+  },
+  {
+   "default": "0",
+   "fieldname": "120",
+   "fieldtype": "Check",
+   "label": "120"
+  },
+  {
+   "fieldname": "column_break_gxkh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "115",
+   "fieldtype": "Check",
+   "label": "115"
+  },
+  {
+   "default": "0",
+   "fieldname": "130",
+   "fieldtype": "Check",
+   "label": "130"
+  },
+  {
+   "fieldname": "column_break_izcx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "80",
+   "fieldtype": "Check",
+   "label": "80"
+  },
+  {
+   "default": "0",
+   "fieldname": "70",
+   "fieldtype": "Check",
+   "label": "70"
+  },
+  {
+   "fieldname": "column_break_tgug",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "90",
+   "fieldtype": "Check",
+   "label": "90"
+  },
+  {
+   "default": "0",
+   "fieldname": "40",
+   "fieldtype": "Check",
+   "label": "40"
+  },
+  {
+   "fieldname": "column_break_cljd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "35",
+   "fieldtype": "Check",
+   "label": "35"
+  },
+  {
+   "fieldname": "size_section",
+   "fieldtype": "Section Break",
+   "label": "Size \u0627\u0644\u0645\u0642\u0627\u0633"
+  },
+  {
+   "default": "0",
+   "fieldname": "100x70",
+   "fieldtype": "Check",
+   "label": "100X70"
+  },
+  {
+   "default": "0",
+   "fieldname": "90x64",
+   "fieldtype": "Check",
+   "label": "90X64"
+  },
+  {
+   "fieldname": "column_break_pwly",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_lgvh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_ofwf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "70x50",
+   "fieldtype": "Check",
+   "label": "70X50"
+  },
+  {
+   "default": "0",
+   "fieldname": "45x64",
+   "fieldtype": "Check",
+   "label": "45X64"
+  },
+  {
+   "default": "0",
+   "fieldname": "gto_35x50",
+   "fieldtype": "Check",
+   "label": "gto 35X50"
+  },
+  {
+   "default": "0",
+   "fieldname": "gto_32x45",
+   "fieldtype": "Check",
+   "label": "gto 32X45"
+  },
+  {
+   "fieldname": "quantity_section",
+   "fieldtype": "Section Break",
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "sheet",
+   "fieldtype": "Float",
+   "label": "Sheet"
+  },
+  {
+   "fieldname": "print_type_section",
+   "fieldtype": "Section Break",
+   "label": "Print Type \u0646\u0648\u0639 \u0627\u0644\u0637\u0628\u0627\u0639\u0629"
+  },
+  {
+   "default": "0",
+   "fieldname": "4_colour",
+   "fieldtype": "Check",
+   "label": "4 Colour \u0627\u0644\u0648\u0627\u0646 4"
+  },
+  {
+   "fieldname": "column_break_pefd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_earx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_cixu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_lxhl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "special",
+   "fieldtype": "Check",
+   "label": "Special \u0633\u0628\u064a\u0634\u0627\u0644 "
+  },
+  {
+   "default": "0",
+   "fieldname": "printed_sample_attached",
+   "fieldtype": "Check",
+   "label": "Printed Sample Attached \u0645\u0631\u0641\u0642 \u0639\u064a\u0646\u0629 \u0645\u0637\u0628\u0648\u0639\u0629"
+  },
+  {
+   "default": "0",
+   "fieldname": "color_analogous_computer",
+   "fieldtype": "Check",
+   "label": "Color Analogous Computer \u0627\u0644\u0644\u0648\u0646 \u062d\u0633\u0628 \u0627\u0644\u0643\u0645\u0628\u064a\u0648\u062a\u0631"
+  },
+  {
+   "fieldname": "print_color",
+   "fieldtype": "Data",
+   "label": "Print Color \u0644\u0648\u0646 \u0627\u0644\u0637\u0628\u0627\u0639\u0629"
+  },
+  {
+   "fieldname": "manual_entry_size",
+   "fieldtype": "Data",
+   "label": "Manual Entry"
+  },
+  {
+   "fieldname": "aspects_of_printing_section",
+   "fieldtype": "Section Break",
+   "label": "Aspects of Printing \u0623\u0648\u062c\u0647 \u0627\u0644\u0637\u0628\u0627\u0639\u0629"
+  },
+  {
+   "default": "0",
+   "fieldname": "1_side",
+   "fieldtype": "Check",
+   "label": "1 Side \u0648\u062c\u0647 \u0648\u0627\u062d\u062f"
+  },
+  {
+   "fieldname": "column_break_sxsd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "2_side",
+   "fieldtype": "Check",
+   "label": "2 Side \u0648\u062c\u0647\u0627\u0646"
+  },
+  {
+   "fieldname": "column_break_bsca",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "turn_and_work",
+   "fieldtype": "Check",
+   "label": "Turn and Work \u0642\u0644\u0628 \u0639\u0644\u064a \u0646\u0641\u0633 \u0627\u0644\u0628\u0644\u064a\u062a"
+  },
+  {
+   "fieldname": "column_break_gila",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "front_to_back",
+   "fieldtype": "Check",
+   "label": "Front to back \u0643\u0644 \u0648\u062c\u0647 \u0628\u0644\u064a\u062a"
+  },
+  {
+   "fieldname": "cellophane_section",
+   "fieldtype": "Section Break",
+   "label": "Cellophane \u0627\u0644\u0633\u0644\u0648\u0641\u0627\u0646"
+  },
+  {
+   "default": "0",
+   "fieldname": "1_side_cellophane",
+   "fieldtype": "Check",
+   "label": "1 Side \u0648\u062c\u0647 \u0648\u0627\u062d\u062f"
+  },
+  {
+   "fieldname": "column_break_odtr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "2_side_cellophane",
+   "fieldtype": "Check",
+   "label": "2 Side \u0648\u062c\u0647\u0627\u0646"
+  },
+  {
+   "fieldname": "column_break_ebwe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "glosse",
+   "fieldtype": "Check",
+   "label": "Glosse \u0644\u0627\u0645\u0639"
+  },
+  {
+   "fieldname": "column_break_hrjv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "no_cellophane",
+   "fieldtype": "Check",
+   "label": "No Cellophane \u0628\u062f\u0648\u0646 \u0633\u0644\u0648\u0641\u0627\u0646"
+  },
+  {
+   "fieldname": "column_break_qzqw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Data",
+   "label": "Notes \u0627\u0644\u0645\u0644\u0627\u062d\u0638\u0627\u062a"
+  },
+  {
+   "fieldname": "die_cut_section",
+   "fieldtype": "Section Break",
+   "label": "Die Cut \u0627\u0644\u062a\u0643\u0633\u064a\u0631"
+  },
+  {
+   "default": "0",
+   "fieldname": "dabab",
+   "fieldtype": "Check",
+   "label": "Dabab \u062f\u0628\u0627\u0628"
+  },
+  {
+   "fieldname": "column_break_hdcm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "cylinder",
+   "fieldtype": "Check",
+   "label": "Cylinder \u0633\u0644\u0646\u062f\u0631"
+  },
+  {
+   "fieldname": "column_break_yucl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "tepo",
+   "fieldtype": "Check",
+   "label": "Tepo \u0645\u0631\u0648\u062d\u0629"
+  },
+  {
+   "fieldname": "column_break_reiz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "folding",
+   "fieldtype": "Check",
+   "label": "Folding \u0637\u0648\u0627\u064a\u0629"
+  },
+  {
+   "fieldname": "column_break_hsxm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "cut_size",
+   "fieldtype": "Check",
+   "label": "Cut Size \u0642\u0635"
+  },
+  {
+   "fieldname": "column_break_mddx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "silk",
+   "fieldtype": "Check",
+   "label": "Silke \u0633\u0644\u0643"
+  },
+  {
+   "fieldname": "thermal_information_silk_screen_section",
+   "fieldtype": "Section Break",
+   "label": "Thermal Information Silk Screen \u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0627\u0644\u062d\u0631\u0627\u0631\u064a \u0648\u0627\u0644\u0633\u0644\u0643\u0633\u0643\u0631\u064a\u0646"
+  },
+  {
+   "fieldname": "information",
+   "fieldtype": "Small Text",
+   "label": "Information"
+  },
+  {
+   "fieldname": "notes_section",
+   "fieldtype": "Section Break",
+   "label": "Notes \u0645\u0644\u0627\u062d\u0638\u0627\u062a "
+  },
+  {
+   "default": "0",
+   "fieldname": "coverage",
+   "fieldtype": "Check",
+   "label": "Coverage \u0643\u0648\u0641\u0631\u0627\u062c"
+  },
+  {
+   "fieldname": "column_break_copk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "basma",
+   "fieldtype": "Check",
+   "label": "Basma \u0628\u0635\u0645\u0629"
+  },
+  {
+   "fieldname": "column_break_upcx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "uv",
+   "fieldtype": "Check",
+   "label": "UV \u064a\u0648\u0641\u064a"
+  },
+  {
+   "fieldname": "column_break_zvth",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "delivery_date",
+   "fieldtype": "Date",
+   "label": "Delivery Date \u062a\u0627\u0631\u064a\u062e \u0627\u0644\u062a\u0633\u0644\u064a\u0645"
+  },
+  {
+   "fieldname": "takseer_machine",
+   "fieldtype": "Link",
+   "label": "Takseer Machine",
+   "options": "Takseer Machine"
+  },
+  {
+   "fieldname": "printing_machine",
+   "fieldtype": "Link",
+   "label": "Printing Machine",
+   "options": "Printing Machine"
   }
  ],
  "grid_page_length": 50,
@@ -119,7 +835,7 @@
    "link_fieldname": "manufacturing_ref_cf"
   }
  ],
- "modified": "2026-07-22 09:35:22.466126",
+ "modified": "2026-07-30 13:31:27.789349",
  "modified_by": "Administrator",
  "module": "Akraz",
  "name": "Manufacturing Order AK",

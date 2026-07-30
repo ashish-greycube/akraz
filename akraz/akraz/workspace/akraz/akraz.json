@@ -66,7 +66,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Settings",
-   "link_count": 2,
+   "link_count": 4,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -90,9 +90,29 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sulufan Machine",
+   "link_count": 0,
+   "link_to": "Sulufan Machine",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Takseer Machine",
+   "link_count": 0,
+   "link_to": "Takseer Machine",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2026-07-23 09:25:33.231946",
+ "modified": "2026-07-30 13:49:34.226674",
  "modified_by": "Administrator",
  "module": "Akraz",
  "name": "Akraz",

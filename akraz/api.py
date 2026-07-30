@@ -11,6 +11,7 @@ def create_manufacturing_order(source_name: str, target_doc=None, args=None):
 		target.quotation_reference = source.name
 		target.owner = source.owner
 		target.date = source.transaction_date
+		target.printing_machine = source.machine_type_cf
 
 		target.save()
 
