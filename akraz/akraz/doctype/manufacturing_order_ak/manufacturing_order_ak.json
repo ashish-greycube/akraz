@@ -808,12 +808,14 @@
    "label": "Delivery Date \u062a\u0627\u0631\u064a\u062e \u0627\u0644\u062a\u0633\u0644\u064a\u0645"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "takseer_machine",
    "fieldtype": "Link",
    "label": "Takseer Machine",
    "options": "Takseer Machine"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "printing_machine",
    "fieldtype": "Link",
    "label": "Printing Machine",
@@ -835,7 +837,7 @@
    "link_fieldname": "manufacturing_ref_cf"
   }
  ],
- "modified": "2026-07-30 13:31:27.789349",
+ "modified": "2026-07-30 14:01:56.900852",
  "modified_by": "Administrator",
  "module": "Akraz",
  "name": "Manufacturing Order AK",
