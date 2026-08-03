@@ -154,30 +154,34 @@ def get_valuation_rate_from_stock_balance_report(filters):
 
 @frappe.whitelist()
 def sales_invoice_validate_set_reference_in_mo(self, method=None):
-	mo_doc = frappe.get_doc("Manufacturing Order AK", self.manufacturing_ref_cf)
-	mo_doc.sales_invoice_reference = self.name
-	mo_doc.save()
+	if self.manufacturing_ref_cf and self.manufacturing_ref_cf != "":
+		mo_doc = frappe.get_doc("Manufacturing Order AK", self.manufacturing_ref_cf)
+		mo_doc.sales_invoice_reference = self.name
+		mo_doc.save()
 
 @frappe.whitelist()
 def sales_invoice_submit_set_billing_status_in_mo(self, method=None):
-	mo_doc = frappe.get_doc("Manufacturing Order AK", self.manufacturing_ref_cf)
-	mo_doc.billing_status = "Billed"
-	mo_doc.save()
+	if self.manufacturing_ref_cf and self.manufacturing_ref_cf != "":
+		mo_doc = frappe.get_doc("Manufacturing Order AK", self.manufacturing_ref_cf)
+		mo_doc.billing_status = "Billed"
+		mo_doc.save()
 
 @frappe.whitelist()
 def cancel_sales_invoice_change_mo_billing_status(self, method=None):
-	mo_doc = frappe.get_doc("Manufacturing Order AK", self.manufacturing_ref_cf)
+	if self.manufacturing_ref_cf and self.manufacturing_ref_cf != "":
+		mo_doc = frappe.get_doc("Manufacturing Order AK", self.manufacturing_ref_cf)
 
-	mo_doc.billing_status = "Unbilled"
-	mo_doc.sales_invoice_reference = ""
+		mo_doc.billing_status = "Unbilled"
+		mo_doc.sales_invoice_reference = ""
 
-	mo_doc.save()
+		mo_doc.save()
 
 @frappe.whitelist()
 def on_change_si_set_billing_status_in_mo(self, method=None):
-	mo_doc = frappe.get_doc("Manufacturing Order AK", self.manufacturing_ref_cf)
+	if self.manufacturing_ref_cf and self.manufacturing_ref_cf != "":
+		mo_doc = frappe.get_doc("Manufacturing Order AK", self.manufacturing_ref_cf)
 
-	if self.status == "Paid":
-		mo_doc.billing_status = "Paid"
+		if self.status == "Paid":
+			mo_doc.billing_status = "Paid"
 
 		mo_doc.save()
