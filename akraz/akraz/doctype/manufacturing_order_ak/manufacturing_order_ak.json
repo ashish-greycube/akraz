@@ -11,6 +11,7 @@
   "section_break_xfng",
   "date",
   "customer",
+  "primary_customer",
   "sales_invoice_reference",
   "column_break_qmns",
   "quotation_reference",
@@ -72,6 +73,8 @@
   "40",
   "column_break_cljd",
   "35",
+  "column_break_ythz",
+  "manual_note_weight",
   "size_section",
   "100x70",
   "90x64",
@@ -820,6 +823,21 @@
    "fieldtype": "Link",
    "label": "Printing Machine",
    "options": "Printing Machine"
+  },
+  {
+   "fieldname": "primary_customer",
+   "fieldtype": "Link",
+   "label": "Primary Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "column_break_ythz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "manual_note_weight",
+   "fieldtype": "Data",
+   "label": "Manual Note"
   }
  ],
  "grid_page_length": 50,
@@ -837,7 +855,7 @@
    "link_fieldname": "manufacturing_ref_cf"
   }
  ],
- "modified": "2026-07-30 14:01:56.900852",
+ "modified": "2026-08-06 13:17:49.683310",
  "modified_by": "Administrator",
  "module": "Akraz",
  "name": "Manufacturing Order AK",

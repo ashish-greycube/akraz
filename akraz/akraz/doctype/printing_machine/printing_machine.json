@@ -7,7 +7,16 @@
  "engine": "InnoDB",
  "field_order": [
   "machine_name",
-  "cost_table"
+  "cost_table",
+  "section_break_wtda",
+  "printing_service",
+  "sulufan",
+  "taskeer",
+  "basma",
+  "column_break_qoeh",
+  "tagria",
+  "cover",
+  "uv"
  ],
  "fields": [
   {
@@ -23,12 +32,62 @@
    "fieldtype": "Table",
    "label": "Cost Table",
    "options": "Printing Machine Item"
+  },
+  {
+   "fieldname": "section_break_wtda",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "printing_service",
+   "fieldtype": "Link",
+   "label": "Printing Service",
+   "options": "Item"
+  },
+  {
+   "fieldname": "column_break_qoeh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tagria",
+   "fieldtype": "Link",
+   "label": "Tagria",
+   "options": "Item"
+  },
+  {
+   "fieldname": "sulufan",
+   "fieldtype": "Link",
+   "label": "Sulufan",
+   "options": "Item"
+  },
+  {
+   "fieldname": "cover",
+   "fieldtype": "Link",
+   "label": "Cover",
+   "options": "Item"
+  },
+  {
+   "fieldname": "taskeer",
+   "fieldtype": "Link",
+   "label": "Taskeer",
+   "options": "Item"
+  },
+  {
+   "fieldname": "uv",
+   "fieldtype": "Link",
+   "label": "UV",
+   "options": "Item"
+  },
+  {
+   "fieldname": "basma",
+   "fieldtype": "Link",
+   "label": "Basma",
+   "options": "Item"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-07-22 07:49:40.081665",
+ "modified": "2026-08-06 13:27:31.635247",
  "modified_by": "Administrator",
  "module": "Akraz",
  "name": "Printing Machine",

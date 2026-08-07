@@ -67,14 +67,32 @@ async function sync_sheet_dependents(frm, sheet_row) {
     // parent_item alone is enough to find that sheet row's auto-added rows.
     let settings_doc = await frappe.db.get_doc("Akraz Settings")
 
+    // Getting Cost from Printing Machine Doctype
+    let machine_doc = ""
+    if (frm.doc.machine_type_cf != null && frm.doc.machine_type_cf != "" && frm.doc.machine_type_cf != undefined)
+        machine_doc = await frappe.db.get_doc("Printing Machine", frm.doc.machine_type_cf)
+    else {
+        frappe.throw("Please Set Machine Type.")
+    }
+    printing_cost = 0
+    for (let i of machine_doc.cost_table) {
+        if (sheet_row.qty >= i.from && sheet_row.qty <= i.to) {
+            printing_cost = i.cost
+            break
+        }
+    }
+
     for (let r of frm.doc.raw_items_cf) {
         if (r.parent_item != sheet_row.parent_item || r.name == sheet_row.name) continue
 
-        if ([settings_doc.printing_service, settings_doc.sulufan, settings_doc.taskeer, settings_doc.uv].includes(r.item_code)) {
+        if ([machine_doc.sulufan, machine_doc.taskeer, machine_doc.uv].includes(r.item_code)) {
             frappe.model.set_value(r.doctype, r.name, "qty", sheet_row.qty)
         }
-        if (r.item_code == settings_doc.sulufan) {
+        if (r.item_code == machine_doc.sulufan) {
             // frappe.model.set_value(r.doctype, r.name, "valuation", sheet_row.valuation)
+        }
+        if (r.item_code == machine_doc.printing_service) {
+            frappe.model.set_value(r.doctype, r.name, "valuation", printing_cost)
         }
     }
     frm.refresh_field("raw_items_cf")
@@ -144,7 +162,7 @@ frappe.ui.form.on('Raw Item AK', {
         let is_sheet_item = is_sheet_item_res.message.is_sheet_item
         let settings_doc = await frappe.db.get_doc("Akraz Settings")
 
-        // Getting Cost from Printing MAchine Doctype
+        // Getting Cost from Printing Machine Doctype
         let machine_doc = ""
         if (frm.doc.machine_type_cf != null && frm.doc.machine_type_cf != "" && frm.doc.machine_type_cf != undefined)
             machine_doc = await frappe.db.get_doc("Printing Machine", frm.doc.machine_type_cf)
@@ -155,9 +173,8 @@ frappe.ui.form.on('Raw Item AK', {
         // Setting Printing Cost, will be used in Printing Service Row
         printing_cost = 0
         for (let i of machine_doc.cost_table) {
-            if (parent_row.qty >= i.from && parent_row.qty <= i.to) {
+            if (row.qty >= i.from && row.qty <= i.to) {
                 printing_cost = i.cost
-
                 break
             }
         }
@@ -168,56 +185,71 @@ frappe.ui.form.on('Raw Item AK', {
             // Sheet Row: qty already set from parent row; valuation stays the stock balance rate fetched above
             // frappe.model.set_value(cdt, cdn, "qty", parent_row.qty)
 
-            // Getting Taskeer, Tagria and UV standard prices from their  production cost (defined in Item)
-            let taskeer_price_res = await frappe.db.get_value("Item", settings_doc.taskeer, "production_cost")
+            // Getting Taskeer, Tagria, Cover, Basma and UV standard prices from their  production cost (defined in Item)
+            let taskeer_price_res = await frappe.db.get_value("Item", machine_doc.taskeer, "production_cost")
             let taskeer_price = taskeer_price_res.message.production_cost
 
-            let tagria_price_res = await frappe.db.get_value("Item", settings_doc.tagria, "production_cost")
+            let tagria_price_res = await frappe.db.get_value("Item", machine_doc.tagria, "production_cost")
             let tagria_price = tagria_price_res.message.production_cost
 
-            let uv_price_res = await frappe.db.get_value("Item", settings_doc.uv, "production_cost")
+            let uv_price_res = await frappe.db.get_value("Item", machine_doc.uv, "production_cost")
             let uv_price = uv_price_res.message.production_cost
 
-            // We get sulufan valuation from Sheet Item -> sulufan rate field
+            let cover_price_res = await frappe.db.get_value("Item", machine_doc.cover, "production_cost")
+            let cover_price = cover_price_res.message.production_cost
+
+            let basma_price_res = await frappe.db.get_value("Item", machine_doc.basma, "production_cost")
+            let basma_price = basma_price_res.message.production_cost
+
+            // We get sulufan valuation from Sheet Item master -> sulufan rate field
             let sulufan_price_res = await frappe.db.get_value("Item", row.item_code, "sulufan_cost")
             let sulufan_price = sulufan_price_res.message.sulufan_cost
 
             // Printing Service
             frm.add_child("raw_items_cf", {
-                item_code: settings_doc.printing_service,
-                qty: row.qty,
+                item_code: machine_doc.printing_service,
+                qty: 1,
                 valuation: printing_cost,
                 parent_item: row.parent_item
             })
             // Sulufan Row
             frm.add_child("raw_items_cf", {
-                item_code: settings_doc.sulufan,
+                item_code: machine_doc.sulufan,
                 qty: row.qty,
                 valuation: sulufan_price,
                 parent_item: row.parent_item
             })
             // Taskeer Row
             frm.add_child("raw_items_cf", {
-                item_code: settings_doc.taskeer,
+                item_code: machine_doc.taskeer,
                 qty: row.qty,
                 valuation: taskeer_price,
                 parent_item: row.parent_item
             })
             // Tagria Row
             frm.add_child("raw_items_cf", {
-                item_code: settings_doc.tagria,
+                item_code: machine_doc.tagria,
                 qty: parent_row.qty,
                 valuation: tagria_price,
                 parent_item: row.parent_item
             })
             // Cover Row
             frm.add_child("raw_items_cf", {
-                item_code: settings_doc.cover,
+                item_code: machine_doc.cover,
+                qty: parent_row.qty,
+                valuation: cover_price,
+                parent_item: row.parent_item
+            })
+            // Basma Row
+            frm.add_child("raw_items_cf", {
+                item_code: machine_doc.basma,
+                qty: parent_row.qty,
+                valuation: basma_price,
                 parent_item: row.parent_item
             })
             // UV Row
             frm.add_child("raw_items_cf", {
-                item_code: settings_doc.uv,
+                item_code: machine_doc.uv,
                 qty: row.qty,
                 valuation: uv_price,
                 parent_item: row.parent_item
