@@ -74,7 +74,7 @@ async function sync_sheet_dependents(frm, sheet_row) {
     else {
         frappe.throw("Please Set Machine Type.")
     }
-    printing_cost = 0
+    let printing_cost = 0
     for (let i of machine_doc.cost_table) {
         if (sheet_row.qty >= i.from && sheet_row.qty <= i.to) {
             printing_cost = i.cost
@@ -171,7 +171,7 @@ frappe.ui.form.on('Raw Item AK', {
         }
 
         // Setting Printing Cost, will be used in Printing Service Row
-        printing_cost = 0
+        let printing_cost = 0
         for (let i of machine_doc.cost_table) {
             if (row.qty >= i.from && row.qty <= i.to) {
                 printing_cost = i.cost
@@ -210,6 +210,7 @@ frappe.ui.form.on('Raw Item AK', {
                 item_code: machine_doc.printing_service,
                 qty: 1,
                 valuation: printing_cost,
+                total: 1 * printing_cost,
                 parent_item: row.parent_item
             })
             // Sulufan Row
@@ -217,6 +218,7 @@ frappe.ui.form.on('Raw Item AK', {
                 item_code: machine_doc.sulufan,
                 qty: row.qty,
                 valuation: sulufan_price,
+                total: row.qty * sulufan_price,
                 parent_item: row.parent_item
             })
             // Taskeer Row
@@ -224,6 +226,7 @@ frappe.ui.form.on('Raw Item AK', {
                 item_code: machine_doc.taskeer,
                 qty: row.qty,
                 valuation: taskeer_price,
+                total: row.qty * taskeer_price,
                 parent_item: row.parent_item
             })
             // Tagria Row
@@ -231,6 +234,7 @@ frappe.ui.form.on('Raw Item AK', {
                 item_code: machine_doc.tagria,
                 qty: parent_row.qty,
                 valuation: tagria_price,
+                total: parent_row.qty * tagria_price,
                 parent_item: row.parent_item
             })
             // Cover Row
@@ -238,6 +242,7 @@ frappe.ui.form.on('Raw Item AK', {
                 item_code: machine_doc.cover,
                 qty: parent_row.qty,
                 valuation: cover_price,
+                total: parent_row.qty * cover_price,
                 parent_item: row.parent_item
             })
             // Basma Row
@@ -245,6 +250,7 @@ frappe.ui.form.on('Raw Item AK', {
                 item_code: machine_doc.basma,
                 qty: parent_row.qty,
                 valuation: basma_price,
+                total: parent_row.qty * basma_price,
                 parent_item: row.parent_item
             })
             // UV Row
@@ -252,6 +258,7 @@ frappe.ui.form.on('Raw Item AK', {
                 item_code: machine_doc.uv,
                 qty: row.qty,
                 valuation: uv_price,
+                total: row.qty * uv_price,
                 parent_item: row.parent_item
             })
 
