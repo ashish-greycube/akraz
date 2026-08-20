@@ -63,6 +63,25 @@ frappe.ui.form.on("Manufacturing Order AK", {
     onload(frm) {
         setup_exclusive_checkbox_sections(frm);
     },
+    before_submit(frm) {
+        frappe.db.get_single_value('Akraz Settings', 'create_repack_on_manufacturing_order_submit')
+            .then(r => {
+                if (r == 1) {
+                    for (let row of frm.doc.items) {
+                        frappe.call({
+                            method: "akraz.api.create_stock_entry",
+                            args: {
+                                self: frm.doc,
+                                selected_item: row.item_code
+                            },
+                            callback(r) {
+                                frm.refresh()
+                            }
+                        })
+                    }
+                }
+            })
+    }
 });
 
 async function validateStockEntries(frm) {

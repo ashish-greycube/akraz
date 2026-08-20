@@ -767,7 +767,7 @@
   },
   {
    "fieldname": "information",
-   "fieldtype": "Small Text",
+   "fieldtype": "Text Editor",
    "label": "Information"
   },
   {
@@ -855,7 +855,7 @@
    "link_fieldname": "manufacturing_ref_cf"
   }
  ],
- "modified": "2026-08-06 13:17:49.683310",
+ "modified": "2026-08-19 13:11:00.189277",
  "modified_by": "Administrator",
  "module": "Akraz",
  "name": "Manufacturing Order AK",

@@ -104,6 +104,22 @@ def after_migrate():
 				"is_custom_field":1,
 				"is_system_generated":0,
 			},
+            {
+                "fieldname" : "is_sulufan_item",
+                "fieldtype" : "Check",
+                "label":'Is Sulufan Item?',
+                "insert_after":'sulufan_cost',
+				"is_custom_field":1,
+				"is_system_generated":0,
+			},
+            {
+                "fieldname" : "is_takseer_item",
+                "fieldtype" : "Check",
+                "label":'Is Takseer Item?',
+                "insert_after":'is_sulufan_item',
+				"is_custom_field":1,
+				"is_system_generated":0,
+			},
         ],
 
         "Quotation Item" : [
@@ -130,6 +146,14 @@ def after_migrate():
                 "fieldtype" : "Button",
                 "label":'Add Raw Items',
                 "insert_after":'item_name',
+				"is_custom_field":1,
+				"is_system_generated":0,
+			},
+            {
+                "fieldname" : "profit_percent_cf",
+                "fieldtype" : "Float",
+                "label":'Profit Percent',
+                "insert_after":'cost_per_pcs_cf',
 				"is_custom_field":1,
 				"is_system_generated":0,
 			},

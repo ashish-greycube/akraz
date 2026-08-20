@@ -6,7 +6,8 @@
  "engine": "InnoDB",
  "field_order": [
   "do_not_allow_user_to_sell_less_than_cost_rate",
-  "is_repack_submit"
+  "is_repack_submit",
+  "create_repack_on_manufacturing_order_submit"
  ],
  "fields": [
   {
@@ -20,13 +21,19 @@
    "fieldname": "is_repack_submit",
    "fieldtype": "Check",
    "label": "Is Repack Submit?"
+  },
+  {
+   "default": "0",
+   "fieldname": "create_repack_on_manufacturing_order_submit",
+   "fieldtype": "Check",
+   "label": "Create Repack on Manufacturing Order Submit?"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2026-08-07 09:06:20.510889",
+ "modified": "2026-08-19 13:13:12.504581",
  "modified_by": "Administrator",
  "module": "Akraz",
  "name": "Akraz Settings",

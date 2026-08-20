@@ -2,7 +2,21 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Quotation", {
-    refresh(frm) {
+    async onload_post_render(frm) {
+        frm.set_query("item_code", "raw_items_cf", function (doc, cdt, cdn) {
+            let row = locals[cdt][cdn];
+
+            let is_takseer_item = row.is_takseer_item
+            let is_sulufan_item = row.is_sulufan_item
+
+            let filters = {};
+            if (is_takseer_item == 1) filters.is_takseer_item = 1;
+            if (is_sulufan_item == 1) filters.is_sulufan_item = 1;
+
+            return { filters };
+        });
+    },
+    async refresh(frm) {
         if (frm.doc.docstatus == 1) {
             frm.add_custom_button("Create Manufacturing Order", () => {
                 frappe.db.get_list("Manufacturing Order AK", {
@@ -38,6 +52,10 @@ frappe.ui.form.on("Quotation", {
             frm.refresh_field("items")
         }
 
+        for (let row of frm.doc.items) {
+            calculate_profit_percentage(frm, row.doctype, row.name, row.cost_per_pcs_cf, row.profit_percent_cf)
+        }
+
         let dont_allow_less_rate_than_cost = await frappe.db.get_single_value("Akraz Settings", "do_not_allow_user_to_sell_less_than_cost_rate")
 
         for (let item of frm.doc.items) {
@@ -60,6 +78,10 @@ frappe.ui.form.on('Quotation Item', {
             frappe.throw(__('Please select Item Code first.'))
         }
     },
+    profit_percent_cf(frm, cdt, cdn) {
+        let row = locals[cdt][cdn]
+        calculate_profit_percentage(frm, cdt, cdn, row.cost_per_pcs_cf, row.profit_percent_cf)
+    }
 })
 
 async function sync_sheet_dependents(frm, sheet_row) {
@@ -219,7 +241,8 @@ frappe.ui.form.on('Raw Item AK', {
                 qty: row.qty,
                 valuation: sulufan_price,
                 total: row.qty * sulufan_price,
-                parent_item: row.parent_item
+                parent_item: row.parent_item,
+                is_sulufan_item: 1
             })
             // Taskeer Row
             frm.add_child("raw_items_cf", {
@@ -227,7 +250,8 @@ frappe.ui.form.on('Raw Item AK', {
                 qty: row.qty,
                 valuation: taskeer_price,
                 total: row.qty * taskeer_price,
-                parent_item: row.parent_item
+                parent_item: row.parent_item,
+                is_takseer_item: 1
             })
             // Tagria Row
             frm.add_child("raw_items_cf", {
@@ -266,3 +290,14 @@ frappe.ui.form.on('Raw Item AK', {
         }
     }
 })
+
+
+function calculate_profit_percentage(frm, cdt, cdn, cost_per_pcs, profit_percent) {
+    let profit = (cost_per_pcs * profit_percent) / 100
+    let final_rate = profit + cost_per_pcs
+    console.log("final rate: ", final_rate)
+    if (final_rate <= 0) { return }
+
+    frappe.model.set_value(cdt, cdn, "rate", final_rate)
+    frm.refresh_field("items")
+}
