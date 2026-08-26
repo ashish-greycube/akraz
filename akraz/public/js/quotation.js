@@ -109,12 +109,22 @@ async function sync_sheet_dependents(frm, sheet_row) {
 
         if ([machine_doc.sulufan, machine_doc.taskeer, machine_doc.uv].includes(r.item_code)) {
             frappe.model.set_value(r.doctype, r.name, "qty", sheet_row.qty)
+            frm.refresh_field("raw_items_cf")
         }
-        if (r.item_code == machine_doc.sulufan) {
-            // frappe.model.set_value(r.doctype, r.name, "valuation", sheet_row.valuation)
+
+        // if (r.item_code == machine_doc.sulufan) {
+        // frappe.model.set_value(r.doctype, r.name, "valuation", sheet_row.valuation)
+        // }
+
+        // In case change of sulufan or takseer item, update valuation
+        let r_item_doc = await frappe.db.get_doc("Item", r.item_code)
+        if (r_item_doc.is_sulufan_item == 1 || r_item_doc.is_takseer_item == 1) {
+            frappe.model.set_value(r.doctype, r.name, "valuation", r_item_doc.production_cost)
+            frm.refresh_field("raw_items_cf")
         }
         if (r.item_code == machine_doc.printing_service) {
             frappe.model.set_value(r.doctype, r.name, "valuation", printing_cost)
+            frm.refresh_field("raw_items_cf")
         }
     }
     frm.refresh_field("raw_items_cf")
@@ -177,6 +187,7 @@ frappe.ui.form.on('Raw Item AK', {
         let sheet_valuation = stock_balance_res.message
 
         frappe.model.set_value(cdt, cdn, "valuation", sheet_valuation)
+        frappe.model.set_value(cdt, cdn, "total", (row.qty * row.valuation))
         frm.refresh_field("raw_items_cf")
 
         // Checking if Sheet item or not, getting akraz settings doc
@@ -207,6 +218,13 @@ frappe.ui.form.on('Raw Item AK', {
             // Sheet Row: qty already set from parent row; valuation stays the stock balance rate fetched above
             // frappe.model.set_value(cdt, cdn, "qty", parent_row.qty)
 
+            // Setting sheet item's valuation from item master's last purchase date
+            let sheet_last_purchase_rate = await frappe.db.get_value("Item", row.item_code, "last_purchase_rate")
+            frappe.model.set_value(cdt, cdn, "valuation", sheet_last_purchase_rate.message.last_purchase_rate)
+            frappe.model.set_value(cdt, cdn, "total", (row.qty * row.valuation))
+            frm.refresh_field("raw_items_cf")
+
+
             // Getting Taskeer, Tagria, Cover, Basma and UV standard prices from their  production cost (defined in Item)
             let taskeer_price_res = await frappe.db.get_value("Item", machine_doc.taskeer, "production_cost")
             let taskeer_price = taskeer_price_res.message.production_cost
@@ -223,9 +241,14 @@ frappe.ui.form.on('Raw Item AK', {
             let basma_price_res = await frappe.db.get_value("Item", machine_doc.basma, "production_cost")
             let basma_price = basma_price_res.message.production_cost
 
+            // OLD =====
             // We get sulufan valuation from Sheet Item master -> sulufan rate field
-            let sulufan_price_res = await frappe.db.get_value("Item", row.item_code, "sulufan_cost")
-            let sulufan_price = sulufan_price_res.message.sulufan_cost
+            // let sulufan_price_res = await frappe.db.get_value("Item", row.item_code, "sulufan_cost")
+            // let sulufan_price = sulufan_price_res.message.sulufan_cost
+            // We get sulufan valuation from sulufan's production cost
+            // =======
+            let sulufan_price_res = await frappe.db.get_value("Item", machine_doc.sulufan, "production_cost")
+            let sulufan_price = sulufan_price_res.message.production_cost
 
             // Printing Service
             frm.add_child("raw_items_cf", {
@@ -288,6 +311,20 @@ frappe.ui.form.on('Raw Item AK', {
 
             frm.refresh_field("raw_items_cf")
         }
+        else {
+            let v_sheet_item_row = {}
+
+            for (let v_row of frm.doc.raw_items_cf) {
+                let is_sheet_item_res = await frappe.db.get_value("Item", v_row.item_code, "is_sheet_item")
+                if (is_sheet_item_res.message.is_sheet_item) {
+                    v_sheet_item_row = v_row
+                }
+            }
+            // In case of change of sulufan or takseer item update valuation
+            if (row.is_takseer_item == 1 || row.is_sulufan_item == 1) {
+                await sync_sheet_dependents(frm, v_sheet_item_row)
+            }
+        }
     }
 })
 
@@ -295,7 +332,6 @@ frappe.ui.form.on('Raw Item AK', {
 function calculate_profit_percentage(frm, cdt, cdn, cost_per_pcs, profit_percent) {
     let profit = (cost_per_pcs * profit_percent) / 100
     let final_rate = profit + cost_per_pcs
-    console.log("final rate: ", final_rate)
     if (final_rate <= 0) { return }
 
     frappe.model.set_value(cdt, cdn, "rate", final_rate)
