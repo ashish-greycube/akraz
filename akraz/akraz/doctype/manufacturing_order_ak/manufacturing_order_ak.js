@@ -60,9 +60,6 @@ frappe.ui.form.on("Manufacturing Order AK", {
             frm.refresh()
         }
     },
-    onload(frm) {
-        setup_exclusive_checkbox_sections(frm);
-    },
     before_submit(frm) {
         frappe.db.get_single_value('Akraz Settings', 'create_repack_on_manufacturing_order_submit')
             .then(r => {
@@ -275,50 +272,4 @@ frappe.ui.form.on('Raw Item AK', {
 function calculate_amount(frm, cdt, cdn, row) {
     frappe.model.set_value(cdt, cdn, "amount", (row.qty * row.rate))
     frm.refresh_field("items")
-}
-
-
-function setup_exclusive_checkbox_sections(frm) {
-    get_checkbox_groups(frm).forEach(group => {
-        if (group.length < 2) return;
-
-        group.forEach(fieldname => {
-            if (frm.doc.docstatus == 0 && frm.doc[fieldname] == 1) {
-                make_read_only(frm, group, fieldname);
-            }
-            frm.fields_dict[fieldname].df.onchange = () => {
-                make_read_only(frm, group, fieldname);
-            }
-        });
-    });
-}
-
-// Groups Check fields by the Section Break they fall under, so the
-// exclusive-checkbox behaviour applies to every section automatically.
-function get_checkbox_groups(frm) {
-    const groups = [];
-    let current_group = [];
-
-    frm.meta.fields.forEach(df => {
-        if (df.fieldtype === "Section Break") {
-            if (current_group.length) groups.push(current_group);
-            current_group = [];
-        } else if (df.fieldtype === "Check") {
-            current_group.push(df.fieldname);
-        }
-    });
-    if (current_group.length) groups.push(current_group);
-
-    return groups;
-}
-
-function make_read_only(frm, group, selected_field) {
-    group.forEach(fieldname => {
-        if (fieldname !== selected_field && frm.doc[selected_field] == 1) {
-            frm.set_value(fieldname, 0);
-            frm.set_df_property(fieldname, 'read_only', 1);
-        } else {
-            frm.set_df_property(fieldname, 'read_only', 0);
-        }
-    });
 }
